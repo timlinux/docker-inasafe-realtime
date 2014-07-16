@@ -45,9 +45,9 @@ RUN git clone --branch master git://github.com/AIFDR/inasafe.git --depth 1 /home
 # RUN tar xfz /tmp/inasafe.tar.gz
 
 # Copy some resources and realtime env variables
-ADD indonesia.sqlite /home/realtime/src/inasafe/fixtures/indonesia.sqlite
-ADD population.tif /home/realtime/src/inasafe/fixtures/exposure/population.tif
-ADD population.keywords /home/realtime/src/inasafe/fixtures/exposure/population.keywords
+ADD indonesia.sqlite /home/realtime/src/inasafe/realtime/fixtures/indonesia.sqlite
+ADD population.tif /home/realtime/src/inasafe/realtime/fixtures/exposure/population.tif
+ADD population.keywords /home/realtime/src/inasafe/realtime/fixtures/exposure/population.keywords
 ADD run-env-linux.sh /home/realtime/src/inasafe/run-env-linux.sh
 
 # Run any additional tasks here that are too tedious to put in
