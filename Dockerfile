@@ -1,6 +1,6 @@
 #--------- Generic stuff all our Dockerfiles should start with so we get caching ------------
 FROM ubuntu:14.04
-MAINTAINER Akbar Gumbira<akbargumbira@gmail.com>
+MAINTAINER Akbar Gumbira <akbargumbira@gmail.com>
 
 RUN export DEBIAN_FRONTEND=noninteractive
 ENV DEBIAN_FRONTEND noninteractive
@@ -31,25 +31,21 @@ RUN chmod o-rwx /root/.ssh
 # Open port 22 so linked containers can see it
 EXPOSE 22
 
-# Install QGIS 2.4 and paramiko
-RUN echo "deb http://qgis.org/debian trusty main" >> /etc/apt/sources.list
-RUN echo "deb-src http://qgis.org/debian trusty main" >> /etc/apt/sources.list
-RUN gpg --keyserver keyserver.ubuntu.com --recv 47765B75
-RUN gpg --export --armor 47765B75 | sudo apt-key add -
+# Install QGIS 2.4, git, and paramiko
+RUN echo "deb http://qgis.org/debian trusty main" >> /etc/apt/sources.list; echo "deb-src http://qgis.org/debian trusty main" >> /etc/apt/sources.list
+RUN gpg --keyserver keyserver.ubuntu.com --recv 47765B75; gpg --export --armor 47765B75 | sudo apt-key add -
 RUN apt-get -y update
-RUN apt-get -y install qgis python-qgis git
+RUN apt-get -y install qgis python-qgis git python-paramiko
 
 # Get InaSAFE 2.1
-RUN mkdir -p /dev/python; cd /dev/python;
 # For production use this:
-RUN git clone --branch master git://github.com/AIFDR/inasafe.git --depth 1
+RUN git clone --branch master git://github.com/AIFDR/inasafe.git --depth 1 /home/realtime/src/inasafe
 # TODO: For development, copy from host. Not finished
-# ADD version-2_1_0.tar.gz /tmp/version-2_1_0.tar.gz
-# RUN tar xfz version-2_1_0.tar.gz inasafe
+# ADD version-2_1_0.tar.gz /tmp/inasafe.tar.gz
+# RUN tar xfz /tmp/inasafe.tar.gz
 
-# Setup requirements.txt
-#RUN apt-get -y install python-pip
-#RUN pip install -r /dev/python/inasafe/REQUIREMENTS.txt
+# Copy realtime env variables
+ADD run-env-linux.sh /home/realtime/src/inasafe/run-env-linux.sh
 
 # Run any additional tasks here that are too tedious to put in
 # this dockerfile directly.
