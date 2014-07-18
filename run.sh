@@ -1,7 +1,15 @@
 #!/bin/sh
 
+# This if for development so that we can ssh into it
+REALTIME_DIR=/home/realtime
+INASAFE_REALTIME_IMAGE=docker-inasafe-realtime
+
+# Kill previous container
+docker.io kill inasafe-realtime
+docker.io rm inasafe-realtime
+
 docker.io run --name="inasafe-realtime" \
--v /home/realtime/shakemaps-cache:/home/realtime/shakemaps-cache \
--v /home/realtime/shakemaps-extracted:/home/realtime/shakemaps-extracted \
 -p 2222:22 \
--d -t AIFDR/inasafe-realtime:latest
+-v ${REALTIME_DIR}/shakemaps-cache:${REALTIME_DIR}/shakemaps-cache \
+-v ${REALTIME_DIR}/shakemaps-extracted:${REALTIME_DIR}/shakemaps-extracted \
+-d -t AIFDR/${INASAFE_REALTIME_IMAGE}:latest
