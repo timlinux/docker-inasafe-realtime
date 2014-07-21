@@ -7,21 +7,21 @@ if [ -f "${REALTIME_DATA_DIR}/population.tif" ]
 then
     cp ${REALTIME_DATA_DIR}/population.tif .
 else
-    wget -c http://quake.linfiniti.com/population.tif
+    wget -O ${REALTIME_DATA_DIR}/population.tif http://quake.linfiniti.com/population.tif
 fi
 
 if [ -f "${REALTIME_DATA_DIR}/population.keywords" ]
 then
     cp ${REALTIME_DATA_DIR}/population.keywords .
 else
-    wget -c http://quake.linfiniti.com/population.keywords
+    wget -O ${REALTIME_DATA_DIR}/population.keywords http://quake.linfiniti.com/population.keywords
 fi
 
 if [ -f "${REALTIME_DATA_DIR}/indonesia.sqlite" ]
 then
     cp ${REALTIME_DATA_DIR}/indonesia.sqlite .
 else
-    wget -c http://quake.linfiniti.com/indonesia.sqlite
+    wget -O ${REALTIME_DATA_DIR}/indonesia.sqlite http://quake.linfiniti.com/indonesia.sqlite
 fi
 
 docker.io build -t AIFDR/${INASAFE_REALTIME_IMAGE} .
