@@ -9,7 +9,7 @@ function show_credentials {
 # This if for development so that we can ssh into it
 REALTIME_DIR=/home/realtime
 REALTIME_DATA_DIR=/home/realtime/analysis_data
-INASAFE_REALTIME_IMAGE=docker-inasafe-realtime
+INASAFE_REALTIME_IMAGE=docker-realtime-inasafe
 
 SFTP_LOCAL_IP=$(docker inspect inasafe-realtime-sftp | grep IPAddress | cut -d '"' -f 4)
 SFTP_LOCAL_PORT=22

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 REALTIME_DATA_DIR=/home/realtime/analysis_data
-INASAFE_REALTIME_IMAGE=docker-inasafe-realtime
+INASAFE_REALTIME_IMAGE=docker-realtime-inasafe
 
 function download_analysis_data {
     echo "Downloading Analysis Data"
