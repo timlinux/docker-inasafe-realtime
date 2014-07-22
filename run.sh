@@ -32,6 +32,7 @@ docker.io run --name="inasafe-realtime" \
 -e INSAFE_REALTIME_PROJECT=${INSAFE_REALTIME_PROJECT} \
 -e INASAFE_POPULATION_PATH=${INASAFE_POPULATION_PATH} \
 -e GEONAMES_SQLITE_PATH=${GEONAMES_SQLITE_PATH} \
+-v ${REALTIME_DATA_DIR}:${REALTIME_DATA_DIR} \
 -v ${REALTIME_DIR}/shakemaps-cache:${REALTIME_DIR}/shakemaps-cache \
 -v ${REALTIME_DIR}/shakemaps-extracted:${REALTIME_DIR}/shakemaps-extracted \
 -i -t AIFDR/${INASAFE_REALTIME_IMAGE}
