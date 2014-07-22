@@ -1,30 +1,29 @@
 #!/bin/sh
 
-REALTIME_DATA_DIR=/home/realtime/data
+REALTIME_DATA_DIR=/home/realtime/analysis_data
 INASAFE_REALTIME_IMAGE=docker-inasafe-realtime
-# Copy some resources from host data dir to this host dir
-if [ -f "${REALTIME_DATA_DIR}/population.tif" ]
-then
-    cp ${REALTIME_DATA_DIR}/population.tif .
-else
-    wget -O ${REALTIME_DATA_DIR}/population.tif http://quake.linfiniti.com/population.tif
-fi
 
-if [ -f "${REALTIME_DATA_DIR}/population.keywords" ]
-then
-    cp ${REALTIME_DATA_DIR}/population.keywords .
-else
-    wget -O ${REALTIME_DATA_DIR}/population.keywords http://quake.linfiniti.com/population.keywords
-fi
+function download_analysis_data {
+    echo "Downloading Analysis Data"
 
-if [ -f "${REALTIME_DATA_DIR}/indonesia.sqlite" ]
-then
-    cp ${REALTIME_DATA_DIR}/indonesia.sqlite .
-else
-    wget -O ${REALTIME_DATA_DIR}/indonesia.sqlite http://quake.linfiniti.com/indonesia.sqlite
-fi
+    analysis_data=( population.tif population.keywords indonesia.sqlite )
+    for data in "${analysis_data[@]}"
+    do
+        if ! [ -f "${REALTIME_DATA_DIR}/${data}" ]
+        then
+            wget -c -O ${REALTIME_DATA_DIR}/${data} http://quake.linfiniti.com/${data}
+        fi
+        cp ${REALTIME_DATA_DIR}/${data} .
+    done
+}
 
-docker.io build -t AIFDR/${INASAFE_REALTIME_IMAGE} .
+function build_realtime_image {
+    echo "Building InaSAFE Realtime Dockerfile"
+    docker.io build -t AIFDR/${INASAFE_REALTIME_IMAGE} .
+}
+
+download_analysis_data
+build_realtime_image
 
 # Clean this dir again
 rm indonesia.sqlite population.tif population.keywords

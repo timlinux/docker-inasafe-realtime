@@ -16,9 +16,6 @@ RUN apt-get -y update
 RUN apt-get -y install rpl pwgen vim
 
 #-------------Application Specific Stuff ----------------------------------------------------
-# Open port 22 so linked containers can see it
-EXPOSE 22
-
 # Install QGIS 2.4, git, xvfb, and paramiko
 RUN echo "deb http://qgis.org/debian trusty main" >> /etc/apt/sources.list; echo "deb-src http://qgis.org/debian trusty main" >> /etc/apt/sources.list
 RUN gpg --keyserver keyserver.ubuntu.com --recv 47765B75; gpg --export --armor 47765B75 | sudo apt-key add -
