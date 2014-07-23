@@ -29,13 +29,6 @@ RUN git clone --branch realtime git://github.com/AIFDR/inasafe.git --depth 1 /ho
 # ADD version-2_1_0.tar.gz /tmp/inasafe.tar.gz
 # RUN tar xfz /tmp/inasafe.tar.gz
 
-# Copy some resources and realtime env variables
-ADD indonesia.sqlite /home/realtime/src/inasafe/realtime/fixtures/indonesia.sqlite
-ADD population.tif /home/realtime/src/inasafe/realtime/fixtures/exposure/population.tif
-ADD population.keywords /home/realtime/src/inasafe/realtime/fixtures/exposure/population.keywords
-ADD run-env-linux.sh /home/realtime/src/inasafe/run-env-linux.sh
-
-
 # Called on first run of docker - will run make-latest-shakemap.sh
 ADD start.sh /start.sh
 RUN chmod 0755 /start.sh
